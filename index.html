@@ -11,10 +11,10 @@
   <link rel="canonical" href="https://miolistico.it/" />
   <meta property="og:url" content="https://miolistico.it/" />
 
-  <!-- Icons -->
-  <link rel="icon" type="image/webp" sizes="32x32" href="assets/icons/favicon-32.webp" />
-  <link rel="icon" type="image/webp" sizes="16x16" href="assets/icons/favicon-16.webp" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.webp" />
+  <!-- Icons (create these files in /assets/icons) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon-180.png" />
   <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#1c0026" />
   <meta name="msapplication-TileColor" content="#1c0026" />
 
@@ -22,14 +22,16 @@
   <meta property="og:title" content="MiOlistico – Centro Olistico a Roma" />
   <meta property="og:description" content="Approccio integrato per benessere corpo e mente. Prenota una consulenza." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/miolistico-og-image.webp" />
+  <meta property="og:image" content="assets/miolistico-logo.png" />
+  <!-- Header uses symbol-only version -->
   <meta property="og:locale" content="it_IT" />
 
-  <!-- Fonts -->
+  <!-- Performance: fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- LocalBusiness schema (update url if needed) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,8 +64,10 @@
       --oro:#e3b34c;
       --oro2:#ffd77b;
       --turchese:#4ec6b6;
+      --bg:#0b0012;
       --text:#f5f1f7;
       --muted:rgba(245,241,247,.78);
+      --glass:rgba(255,255,255,.05);
       --line:rgba(255,255,255,.10);
       --shadow: 0 18px 55px rgba(0,0,0,.35);
       --radius: 18px;
@@ -72,6 +76,7 @@
       --ease: cubic-bezier(.2,.8,.2,1);
       --navH: 76px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -87,6 +92,8 @@
       -webkit-font-smoothing: antialiased;
       overflow-x:hidden;
     }
+
+    /* subtle grain */
     body:before{
       content:"";
       position:fixed; inset:0;
@@ -96,6 +103,7 @@
       opacity:.12;
       mix-blend-mode: overlay;
     }
+
     h1,h2,h3{
       font-family: "Playfair Display", serif;
       font-weight: 600;
@@ -106,76 +114,373 @@
     h2{font-size: clamp(1.55rem, 2.4vw, 2.2rem); line-height:1.12}
     h3{font-size: 1.12rem; line-height:1.25}
     p{margin:0 0 14px; color: var(--muted)}
+
     a{color:inherit;text-decoration:none}
+
+    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip:focus{left:16px; top:16px; width:auto; height:auto; z-index:9999; padding:10px 12px; border-radius:14px; background:rgba(0,0,0,.7); border:1px solid var(--line)}
+
     .container{width:min(var(--max), calc(100% - 40px)); margin:auto}
+
+    /* progress bar */
     .progress{position:fixed; top:0; left:0; height:2px; width:0; background: linear-gradient(90deg, rgba(78,198,182,.85), rgba(227,179,76,.78)); z-index: 1001; box-shadow:0 0 18px rgba(78,198,182,.25)}
-    header{position: fixed; width:100%; top:0; z-index:1000; backdrop-filter: blur(12px); background: rgba(0,0,0,0.34); border-bottom: 1px solid rgba(255,255,255,0.06);}
-    nav{display:flex; justify-content:space-between; align-items:center; padding: 14px 0; gap: 14px; min-height: var(--navH);}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:600; min-width: 200px;}
-    .brand img{height:44px; width:44px; border-radius: 14px; object-fit: cover; border: 1px solid rgba(255,255,255,.10); box-shadow: 0 14px 40px rgba(0,0,0,.35);}
-    .menu{display:flex; gap: 22px; font-size: .95rem; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+
+    header{
+      position: fixed;
+      width:100%;
+      top:0;
+      z-index:1000;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.34);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 14px 0;
+      gap: 14px;
+      min-height: var(--navH);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:600;
+      min-width: 200px;
+    }
+
+    .brand img{
+      height:44px;
+      width:44px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .brand span{display:block; font-weight: 600}
+    .brand small{display:block; font-size: .78rem; opacity:.72; letter-spacing:.06em}
+
+    .menu{
+      display:flex;
+      gap: 22px;
+      font-size: .95rem;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
     .menu a{opacity:.9; padding: 10px 10px; border-radius: 999px; border:1px solid transparent; transition: .2s var(--ease)}
     .menu a:hover{opacity:1; background: rgba(255,255,255,.06)}
     .menu a.active{opacity:1; background: rgba(78,198,182,.10); border-color: rgba(78,198,182,.16)}
-    .cta{background: linear-gradient(135deg, var(--oro), var(--oro2)); color:#0a0011; padding: 10px 16px; border-radius: 999px; font-weight: 700; transition: transform .22s var(--ease), filter .22s var(--ease); white-space: nowrap; box-shadow: 0 14px 40px rgba(0,0,0,.28);}
+
+    .cta{
+      background: linear-gradient(135deg, var(--oro), var(--oro2));
+      color:#0a0011;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .22s var(--ease), filter .22s var(--ease);
+      white-space: nowrap;
+      box-shadow: 0 14px 40px rgba(0,0,0,.28);
+    }
     .cta:hover{transform: translateY(-2px); filter: brightness(1.03)}
-    .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding: 11px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); color: var(--text); font-weight: 650; transition: transform .22s var(--ease), background .22s var(--ease), border-color .22s var(--ease); white-space: nowrap;}
+    .cta:active{transform: translateY(0px) scale(.99)}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 650;
+      transition: transform .22s var(--ease), background .22s var(--ease), border-color .22s var(--ease);
+      white-space: nowrap;
+    }
     .btn:hover{transform: translateY(-2px); border-color: rgba(78,198,182,.22); background: rgba(255,255,255,.07)}
+
+    .burger{
+      display:none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+    }
+
+    /* mobile sheet */
+    .sheet{position:fixed; inset:0; background: rgba(0,0,0,.6); display:none; z-index:1002}
+    .sheet.open{display:block}
+    .sheetPanel{position:absolute; right:0; top:0; height:100%; width: min(420px, 92vw); background: rgba(10,0,17,.92); border-left: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(14px); padding: 18px; display:flex; flex-direction:column; gap:10px}
+    .sheetTop{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom: 6px}
+    .close{padding: 10px 12px; border-radius: 999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: var(--text); cursor:pointer}
+    .sheetPanel a{padding: 12px 12px; border-radius: 16px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04)}
+
     section{padding: 110px 0}
     .anchor{scroll-margin-top: calc(var(--navH) + 18px)}
+
     .hero{padding-top: 160px; text-align:center; position:relative}
+    .hero:before{
+      content:"";
+      position:absolute; inset:-80px -40px auto -40px; height: 520px;
+      background:
+        radial-gradient(closest-side at 18% 40%, rgba(78,198,182,.18), transparent 70%),
+        radial-gradient(closest-side at 78% 22%, rgba(227,179,76,.16), transparent 72%),
+        radial-gradient(closest-side at 55% 78%, rgba(78,198,182,.10), transparent 70%);
+      pointer-events:none;
+      opacity:.95;
+      filter: blur(1px);
+    }
+
+    .hero .container{position:relative}
+
     .kicker{display:inline-flex; align-items:center; gap:10px; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; opacity:.9; margin-bottom: 12px}
     .dot{width:9px; height:9px; border-radius:99px; background: radial-gradient(circle at 30% 30%, var(--turchese), rgba(78,198,182,.2)); box-shadow:0 0 0 5px rgba(78,198,182,.10)}
+
+    .hero p{max-width: 820px; margin: 0 auto 18px}
+
     .btnRow{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 18px}
+
     .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top: 18px}
     .badge{display:inline-flex; align-items:center; gap:8px; padding: 8px 10px; border-radius: 999px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); font-size: .85rem; opacity:.92}
     .spark{width:8px; height:8px; border-radius:99px; background: rgba(227,179,76,.78); box-shadow:0 0 0 4px rgba(227,179,76,.12)}
-    .panel{background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius2); padding: 26px; box-shadow: var(--shadow); overflow:hidden; position:relative;}
+
+    .panel{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius2);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 260px at 18% 12%, rgba(78,198,182,.14), transparent 60%),
+        radial-gradient(520px 260px at 86% 18%, rgba(227,179,76,.10), transparent 65%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .panel > *{position:relative}
+
     .split{display:grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start}
-    .services{display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 22px;}
-    .gallery{display:grid; grid-template-columns: 1.05fr .95fr; gap: 18px; align-items: stretch; margin-top: 18px;}
+
+    .services{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    /* Gallery (real photos) */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
     .shots{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
-    .shot{border-radius: var(--radius2); border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); overflow:hidden; position:relative; box-shadow: 0 16px 48px rgba(0,0,0,.30);}
+    .shot{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      position:relative;
+      box-shadow: 0 16px 48px rgba(0,0,0,.30);
+      transform: translateZ(0);
+    }
     .shot.big{grid-row: span 2}
-    .shot img{width:100%; height:100%; object-fit: cover; display:block;}
+    .shot img{width:100%; height:100%; object-fit: cover; display:block; filter: saturate(1.02) contrast(1.02)}
+    .shot:after{content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45)); pointer-events:none}
+    .shotCap{position:absolute; left:14px; right:14px; bottom:12px; display:flex; justify-content:space-between; gap:10px; align-items:baseline}
+    .shotCap strong{font-size:.95rem}
+    .shotCap span{font-size:.8rem; opacity:.78}
+
+    .card{
+      background: rgba(255,255,255,.04);
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{content:""; position:absolute; inset:-1px; background: radial-gradient(320px 180px at 20% 0%, rgba(78,198,182,.10), transparent 55%); pointer-events:none; opacity:.85}
+    .card > *{position:relative}
+    .card:hover{transform: translateY(-6px); border-color: rgba(227,179,76,.35); background: rgba(255,255,255,.055)}
+
+    .pill{display:inline-flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 999px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); font-size: .82rem; margin-bottom: 10px; opacity:.92}
+    .ico{width:18px; height:18px; border-radius: 7px; background: linear-gradient(180deg, rgba(78,198,182,.25), rgba(227,179,76,.12)); border:1px solid rgba(255,255,255,.10)}
+
+    .bullets{margin: 10px 0 0; display:grid; gap:8px}
+    .bullet{display:flex; gap:10px; align-items:flex-start; padding: 10px; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.12)}
+    .check{width:18px; height:18px; border-radius: 7px; background: rgba(78,198,182,.14); border: 1px solid rgba(78,198,182,.22); flex:0 0 auto; margin-top:2px; display:grid; place-items:center}
+    .check svg{width:13px; height:13px; fill: rgba(245,241,247,.92)}
+
+    /* FAQ (details/summary) */
+    details.faq{border-radius: 16px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); padding: 14px 16px; transition: border-color .2s var(--ease), transform .2s var(--ease)}
+    details.faq[open]{border-color: rgba(78,198,182,.18)}
+    details.faq:hover{transform: translateY(-1px)}
+
+    summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:14px; font-weight: 650}
+    summary::-webkit-details-marker{display:none}
+    .chev{width:36px; height:36px; border-radius: 999px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display:grid; place-items:center; transition: transform .2s var(--ease)}
+    details[open] .chev{transform: rotate(180deg)}
+    .chev svg{width:18px; height:18px; fill: rgba(245,241,247,.9)}
+
     .faqGrid{display:grid; gap:12px; margin-top: 18px}
+
+    /* Form */
+    form{display:grid; gap:12px; margin-top: 14px}
+    .row2{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    label{font-size: .85rem; opacity:.85}
+    input, select, textarea{width:100%; padding: 12px 12px; border-radius: 14px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.22); color: var(--text); outline: none; transition: border-color .2s var(--ease), box-shadow .2s var(--ease)}
+    input:focus, select:focus, textarea:focus{border-color: rgba(78,198,182,.35); box-shadow: 0 0 0 4px rgba(78,198,182,.12)}
+    textarea{min-height: 130px; resize: vertical}
+
+    .consent{display:flex; gap:10px; align-items:flex-start; padding: 12px; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); font-size:.85rem; opacity:.9}
+    .consent input{width:18px; height:18px; margin-top:2px}
+
+    .help{font-size: .85rem; opacity:.75}
+
     iframe.map{width:100%; border:0; border-radius: 18px; height: 360px; margin-top: 18px; background: rgba(255,255,255,.03)}
+
     footer{background: rgba(0,0,0,.25); border-top: 1px solid rgba(255,255,255,.06); padding: 46px 0; text-align:center; font-size: .95rem; opacity:.88}
+
+    /* Floating actions */
     .float{position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 1003; display:flex; flex-direction:column; gap:10px}
-    .fab{display:inline-flex; align-items:center; gap:10px; justify-content:center; padding: 12px 14px; border-radius: 999px; border:1px solid rgba(78,198,182,.22); background: rgba(10,0,17,.78); backdrop-filter: blur(10px); box-shadow: 0 18px 55px rgba(0,0,0,.35); font-weight: 700;}
+    .fab{display:inline-flex; align-items:center; gap:10px; justify-content:center; padding: 12px 14px; border-radius: 999px; border:1px solid rgba(78,198,182,.22); background: rgba(10,0,17,.78); backdrop-filter: blur(10px); box-shadow: 0 18px 55px rgba(0,0,0,.35); font-weight: 700; cursor:pointer}
+    .fab:hover{transform: translateY(-2px)}
+    .fab svg{width:16px; height:16px; fill: rgba(245,241,247,.92)}
     .fab.gold{border-color: rgba(227,179,76,.26)}
-    .stickyBar{display:none}
-    @media (max-width: 1020px){ .services{grid-template-columns: 1fr 1fr} .split{grid-template-columns: 1fr} .gallery{grid-template-columns: 1fr} }
+
+    @media (max-width: 1020px){
+      .services{grid-template-columns: 1fr 1fr}
+      .split{grid-template-columns: 1fr}
+      .gallery{grid-template-columns: 1fr}
+    }
+
     @media (max-width: 760px){
       .menu{display:none}
+      .burger{display:inline-flex}
       section{padding: 90px 0}
       .container{width:min(var(--max), calc(100% - 28px))}
       .hero{padding-top: 150px}
+      .row2{grid-template-columns: 1fr}
       .services{grid-template-columns: 1fr}
       .shots{grid-template-columns: 1fr}
       iframe.map{height: 320px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *{transition:none !important; animation:none !important}
+    }
+  
+    /* Sticky bottom bar (mobile only) */
+    .stickyBar{display:none}
+    @media (max-width: 760px){
       .float{right: 12px}
-      .stickyBar{display:flex; position:fixed; left:12px; right:12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index:1004; gap:10px; padding:10px; border-radius:18px; border:1px solid rgba(255,255,255,.12); background: rgba(10,0,17,.72); backdrop-filter: blur(12px); box-shadow: 0 18px 55px rgba(0,0,0,.40);}
-      .stickyBar a{flex:1; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center; gap:10px; font-weight:750;}
-      .stickyBar a.primary{color:#0a0011; border-color: rgba(227,179,76,.18); background: linear-gradient(135deg, var(--oro), var(--oro2));}
+      .stickyBar{
+        display:flex;
+        position:fixed;
+        left: 12px;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        z-index: 1004;
+        gap:10px;
+        padding: 10px;
+        border-radius: 18px;
+        border:1px solid rgba(255,255,255,.12);
+        background: rgba(10,0,17,.72);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 18px 55px rgba(0,0,0,.40);
+      }
+      .stickyBar a{
+        flex:1;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border:1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.04);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        font-weight: 750;
+      }
+      .stickyBar a.primary{
+        color:#0a0011;
+        border-color: rgba(227,179,76,.18);
+        background: linear-gradient(135deg, var(--oro), var(--oro2));
+      }
       .stickyBar svg{width:16px; height:16px; fill: rgba(245,241,247,.92)}
       .stickyBar a.primary svg{fill:#0a0011}
     }
+
+    /* Asset manifest (for deployment) */
+    /*
+      Recommended folders:
+      /assets
+        miolistico-symbol.png   (simbolo header)
+        miolistico-logo.png     (logo completo social/OG)
+        miolistico-roma-area-movimento.webp
+        miolistico-roma-sala-accoglienza.webp
+        miolistico-roma-spazi-riservati.webp
+      /assets/icons
+        favicon-16.png
+        favicon-32.png
+        favicon-180.png
+        safari-pinned-tab.svg
+    */
   </style>
 </head>
+
 <body>
   <div class="progress" id="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Salta al contenuto</a>
+
+  <!-- Mobile sheet -->
+  <div class="sheet" id="sheet" aria-hidden="true">
+    <div class="sheetPanel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="sheetTop">
+        <div class="brand">
+          <img src="assets/miolistico-symbol.png" alt="MiOlistico simbolo" loading="lazy" decoding="async" />
+          <div>
+            <span>MiOlistico</span>
+            <small>Vivi il tuo benessere</small>
+          </div>
+        </div>
+        <button class="close" id="closeSheet" aria-label="Chiudi menu">Chiudi ✕</button>
+      </div>
+      <a href="#centro" data-close>Il centro</a>
+      <a href="#servizi" data-close>Servizi</a>
+      <a href="#ambienti" data-close>Ambienti</a>
+      <a href="#faq" data-close>FAQ</a>
+      <a href="#contatti" data-close>Contatti</a>
+      <a class="cta" href="#contatti" data-close>Prenota</a>
+    </div>
+  </div>
 
   <header>
     <div class="container">
       <nav aria-label="Menu principale">
         <a class="brand" href="#home" aria-label="Vai alla home">
-          <img src="assets/miolistico-logo.webp" alt="MiOlistico logo" loading="eager" decoding="async" />
+          <img src="assets/miolistico-symbol.png" alt="MiOlistico simbolo" loading="eager" decoding="async" />
           <div>
             <span>MiOlistico</span>
             <small>Centro olistico a Roma</small>
           </div>
         </a>
+
         <div class="menu" id="menu">
           <a href="#centro">Il centro</a>
           <a href="#servizi">Servizi</a>
@@ -183,22 +488,40 @@
           <a href="#faq">FAQ</a>
           <a href="#contatti">Contatti</a>
         </div>
+
         <div style="display:flex; align-items:center; gap:10px">
           <a class="cta" href="#contatti">Prenota</a>
+          <button class="burger" id="burger" aria-label="Apri menu" aria-expanded="false" aria-controls="sheet">Menu ▾</button>
         </div>
       </nav>
     </div>
   </header>
 
+  <!-- Floating quick actions (lead gen) -->
   <div class="float" aria-label="Azioni rapide">
-    <a class="fab" href="tel:+393481644776" aria-label="Chiama MiOlistico">Chiama</a>
-    <a class="fab gold" id="waBtn" href="#" aria-label="Scrivi su WhatsApp">WhatsApp</a>
+    <a class="fab" href="tel:+393481644776" aria-label="Chiama MiOlistico">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.7 3.3 3.3 4.9 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.7 3.8.7.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.5 22 2 13.5 2 3c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.6.7 3.8.1.4 0 .8-.2 1.1L6.6 10.8z"/></svg>
+      Chiama
+    </a>
+    <a class="fab gold" id="waBtn" href="#" aria-label="Scrivi su WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.6 18.7L2 22l3.4-1.5A11 11 0 0 0 20.5 3.5zM12 20a9 9 0 0 1-4.2-1l-.3-.2-2 .9.8-2-.2-.3A9 9 0 1 1 12 20zm5-6.2c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1-.8.9-1 .9-.4.1-.7 0a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-2c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6 0-.2 0-.4-.1-.6s-.7-1.7-1-2.3c-.2-.5-.5-.4-.7-.4H7c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 4.9 4.4.7.3 1.2.4 1.6.5.7.2 1.3.1 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+      WhatsApp
+    </a>
   </div>
 
+  <!-- Sticky mobile CTA bar -->
   <div class="stickyBar" aria-label="Azioni rapide mobile">
-    <a href="tel:+393481644776" aria-label="Chiama MiOlistico">Chiama</a>
-    <a id="waBar" href="#" aria-label="WhatsApp MiOlistico">WhatsApp</a>
-    <a class="primary" href="#contatti" aria-label="Prenota una consulenza">Prenota</a>
+    <a href="tel:+393481644776" aria-label="Chiama MiOlistico">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.7 3.3 3.3 4.9 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.7 3.8.7.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.5 22 2 13.5 2 3c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.6.7 3.8.1.4 0 .8-.2 1.1L6.6 10.8z"/></svg>
+      Chiama
+    </a>
+    <a id="waBar" href="#" aria-label="WhatsApp MiOlistico">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.6 18.7L2 22l3.4-1.5A11 11 0 0 0 20.5 3.5zM12 20a9 9 0 0 1-4.2-1l-.3-.2-2 .9.8-2-.2-.3A9 9 0 1 1 12 20zm5-6.2c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1-.8.9-1 .9-.4.1-.7 0a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-2c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6 0-.2 0-.4-.1-.6s-.7-1.7-1-2.3c-.2-.5-.5-.4-.7-.4H7c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 4.9 4.4.7.3 1.2.4 1.6.5.7.2 1.3.1 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+      WhatsApp
+    </a>
+    <a class="primary" href="#contatti" aria-label="Prenota una consulenza">
+      Prenota
+    </a>
   </div>
 
   <main id="main">
@@ -206,11 +529,17 @@
       <div class="container">
         <div class="kicker"><span class="dot"></span> Zona Tuscolana · Numidio Quadrato · Roma</div>
         <h1>Benessere integrato per corpo e mente</h1>
-        <p>MiOlistico è un centro olistico a Roma dove professionisti della salute e del benessere lavorano insieme per accompagnarti verso equilibrio, energia e qualità della vita.</p>
+        <p>
+          MiOlistico è un centro olistico a Roma dove professionisti della salute e del benessere lavorano insieme
+          per accompagnarti verso equilibrio, energia e qualità della vita, con un approccio professionale ed empatico.
+        </p>
+
         <div class="btnRow">
           <a class="cta" href="#contatti">Prenota una consulenza</a>
           <a class="btn" href="#servizi">Scopri i servizi</a>
+          <a class="btn" href="https://www.google.com/maps?cid=5509597620138226728" target="_blank" rel="noopener">Apri su Google Maps</a>
         </div>
+
         <div class="badges" aria-label="Punti distintivi">
           <span class="badge"><span class="spark"></span>Approccio integrato</span>
           <span class="badge"><span class="spark"></span>Ambiente riservato</span>
@@ -219,12 +548,118 @@
       </div>
     </section>
 
+    <section class="anchor" id="centro">
+      <div class="container">
+        <div class="split">
+          <div class="panel">
+            <div class="kicker"><span class="dot"></span> Il centro</div>
+            <h2>Un luogo accogliente, curato, professionale</h2>
+            <p>
+              Qui l’esperienza è parte del trattamento: privacy, ascolto, e un metodo chiaro per aiutarti a scegliere
+              da dove iniziare. L’obiettivo è farti sentire al sicuro e accompagnato, con un percorso coerente.
+            </p>
+            <div class="bullets">
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Prima consulenza guidata</strong><br/><span style="opacity:.85">Capisci subito cosa fare e perché.</span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Approccio integrato</strong><br/><span style="opacity:.85">Corpo, mente, movimento e abitudini lavorano insieme.</span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Riservatezza e cura</strong><br/><span style="opacity:.85">Ambienti e tempi rispettosi della persona.</span></div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="kicker"><span class="dot"></span> Come lavoriamo</div>
+            <h2>Dal bisogno al tuo piano, senza confusione</h2>
+            <p>Un percorso sostenibile: obiettivi chiari, scelte guidate, continuità.</p>
+            <div class="bullets">
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Ascolto</strong><br/><span style="opacity:.85">Capire cosa vivi e cosa desideri.</span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Valutazione</strong><br/><span style="opacity:.85">Individuare la priorità e le connessioni.</span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Piano su misura</strong><br/><span style="opacity:.85">Servizi e frequenza realistici e sostenibili.</span></div></div>
+            </div>
+            <div class="btnRow" style="justify-content:flex-start; margin-top: 16px">
+              <a class="cta" href="#contatti">Prenota</a>
+              <a class="btn" href="#faq">Leggi le FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="anchor" id="servizi">
       <div class="container">
         <div class="panel">
           <div class="kicker"><span class="dot"></span> Servizi</div>
-          <h2>I nostri servizi principali</h2>
-          <p>Fisioterapia, Osteopatia, Supporto psicologico, Massaggi olistici.</p>
+          <h2>Percorsi professionali per il tuo benessere</h2>
+          <p>
+            Ogni servizio nasce da una visione integrata: non trattiamo solo il sintomo,
+            ma la persona nella sua globalità. Lavoriamo su dolore, postura, emozioni,
+            stress, energia e stile di vita, costruendo interventi coerenti e sostenibili.
+          </p>
+
+          <div class="services" aria-label="Servizi">
+            <div class="card">
+              <div class="pill"><span class="ico"></span> Recupero & Movimento</div>
+              <h3>Fisioterapia</h3>
+              <p>
+                Interventi mirati per dolore acuto e cronico, riabilitazione post-traumatica
+                e post-operatoria, recupero funzionale e miglioramento della mobilità.
+                Il lavoro combina terapia manuale, esercizio terapeutico e educazione al movimento.
+              </p>
+              <div class="bullets">
+                <div class="bullet"><div class="check"></div><div>Dolore cervicale, lombare e articolare</div></div>
+                <div class="bullet"><div class="check"></div><div>Riabilitazione sportiva</div></div>
+                <div class="bullet"><div class="check"></div><div>Rieducazione posturale</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="pill"><span class="ico"></span> Equilibrio Strutturale</div>
+              <h3>Osteopatia</h3>
+              <p>
+                Approccio manuale che lavora su struttura e funzione per favorire
+                equilibrio, mobilità e autoregolazione dell’organismo.
+                Utile in presenza di tensioni muscolari, rigidità, disturbi funzionali.
+              </p>
+              <div class="bullets">
+                <div class="bullet"><div class="check"></div><div>Disfunzioni muscolo-scheletriche</div></div>
+                <div class="bullet"><div class="check"></div><div>Cefalee e tensioni cervicali</div></div>
+                <div class="bullet"><div class="check"></div><div>Supporto in periodi di stress fisico</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="pill"><span class="ico"></span> Ascolto & Consapevolezza</div>
+              <h3>Supporto psicologico</h3>
+              <p>
+                Spazio professionale di ascolto per adulti, bambini e adolescenti.
+                Lavoriamo su ansia, stress, difficoltà relazionali e momenti di cambiamento,
+                con strumenti concreti e percorsi personalizzati.
+              </p>
+              <div class="bullets">
+                <div class="bullet"><div class="check"></div><div>Gestione dell’ansia e dello stress</div></div>
+                <div class="bullet"><div class="check"></div><div>Sostegno emotivo</div></div>
+                <div class="bullet"><div class="check"></div><div>Percorsi evolutivi personalizzati</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="pill"><span class="ico"></span> Distensione & Energia</div>
+              <h3>Massaggi olistici</h3>
+              <p>
+                Trattamenti dedicati al rilassamento profondo e al riequilibrio energetico.
+                Ideali per sciogliere tensioni, migliorare la qualità del sonno
+                e ritrovare centratura.
+              </p>
+              <div class="bullets">
+                <div class="bullet"><div class="check"></div><div>Massaggio rilassante</div></div>
+                <div class="bullet"><div class="check"></div><div>Trattamenti antistress</div></div>
+                <div class="bullet"><div class="check"></div><div>Riequilibrio energetico</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="btnRow" style="justify-content:flex-start; margin-top: 20px">
+            <a class="cta" href="#contatti">Prenota una consulenza</a>
+            <a class="btn" href="#faq">Hai dubbi? Leggi le FAQ</a>
+          </div>
         </div>
       </div>
     </section>
@@ -234,16 +669,31 @@
         <div class="panel">
           <div class="kicker"><span class="dot"></span> Ambienti</div>
           <h2>Uno spazio luminoso, ordinato, riservato</h2>
+          <p>Un ambiente semplice e curato, pensato per farti sentire a tuo agio fin dal primo minuto.</p>
+
           <div class="gallery" aria-label="Foto del centro MiOlistico">
+            <div class="panel" style="box-shadow:none; background: rgba(0,0,0,.10)">
+              <h3 style="margin-bottom:8px">Cosa troverai</h3>
+              <p style="margin-bottom:10px">Accoglienza, privacy e attenzione. Se vuoi, puoi prenotare una breve visita orientativa: ti aiutiamo a scegliere il servizio più adatto.</p>
+              <div class="btnRow" style="justify-content:flex-start; margin-top: 10px">
+                <a class="cta" href="#contatti">Prenota una visita</a>
+                <a class="btn" href="#contatti">Chiedi informazioni</a>
+              </div>
+              <p class="help" style="margin-top:10px">Per la pubblicazione: salva le 3 immagini nella cartella <strong>assets</strong> con questi nomi ottimizzati SEO: <em>miolistico-roma-area-movimento.webp</em>, <em>miolistico-roma-sala-accoglienza.webp</em>, <em>miolistico-roma-spazi-riservati.webp</em>.</p>
+            </div>
+
             <div class="shots">
               <figure class="shot big">
                 <img src="assets/miolistico-roma-area-movimento.webp" alt="MiOlistico Roma: area esercizi e riabilitazione" loading="lazy" decoding="async" width="900" height="1200" />
+                <figcaption class="shotCap"><strong>Area movimento</strong><span>riabilitazione · mobilità</span></figcaption>
               </figure>
               <figure class="shot">
                 <img src="assets/miolistico-roma-sala-accoglienza.webp" alt="MiOlistico Roma: sala accoglienza" loading="lazy" decoding="async" width="900" height="650" />
+                <figcaption class="shotCap"><strong>Accoglienza</strong><span>calma · comfort</span></figcaption>
               </figure>
               <figure class="shot">
                 <img src="assets/miolistico-roma-spazi-riservati.webp" alt="MiOlistico Roma: corridoio e sala d'attesa" loading="lazy" decoding="async" width="900" height="650" />
+                <figcaption class="shotCap"><strong>Spazi riservati</strong><span>privacy · cura</span></figcaption>
               </figure>
             </div>
           </div>
@@ -251,35 +701,356 @@
       </div>
     </section>
 
-    <section class="anchor" id="contatti">
+    <section class="anchor" id="faq">
       <div class="container">
         <div class="panel">
-          <div class="kicker"><span class="dot"></span> Contatti</div>
-          <h2>Prenota una consulenza</h2>
-          <p>Via V. Spurinna 147, Roma · <a href="tel:+393481644776" style="text-decoration:underline">+39 348 164 4776</a> · <a href="mailto:centro.miolistico@gmail.com" style="text-decoration:underline">centro.miolistico@gmail.com</a></p>
-          <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.3849121356666!2d12.553740311140434!3d41.86400146617758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f6387f8afe123%3A0x4c675f3babce5c28!2sFisioterapia%20e%20Osteopatia%20Tuscolana%20-%20Clinica%20del%20mal%20di%20schiena!5e1!3m2!1sit!2sit!4v1771343690387!5m2!1sit!2sit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MiOlistico su Google Maps"></iframe>
+          <div class="kicker"><span class="dot"></span> FAQ</div>
+          <h2>Domande frequenti</h2>
+          <p>Risposte rapide per scegliere con serenità e arrivare al primo incontro preparato.</p>
+
+          <div class="faqGrid" aria-label="Domande frequenti">
+            <details class="faq" open>
+              <summary>
+                <span>Non so da dove iniziare: cosa mi consigliate?</span>
+                <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15.5 5 8.5l1.4-1.4L12 12.7l5.6-5.6L19 8.5z"/></svg></span>
+              </summary>
+              <p>Parti da una consulenza orientativa: raccontaci il bisogno e ti proponiamo il servizio più adatto o una valutazione iniziale per costruire un piano chiaro.</p>
+            </details>
+
+            <details class="faq">
+              <summary>
+                <span>Come prenoto una visita?</span>
+                <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15.5 5 8.5l1.4-1.4L12 12.7l5.6-5.6L19 8.5z"/></svg></span>
+              </summary>
+              <p>Puoi chiamare, scrivere email o compilare il modulo: ti ricontattiamo per confermare data e orario.</p>
+            </details>
+
+            <details class="faq">
+              <summary>
+                <span>Il primo incontro è personalizzato?</span>
+                <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15.5 5 8.5l1.4-1.4L12 12.7l5.6-5.6L19 8.5z"/></svg></span>
+              </summary>
+              <p>Sì: raccogliamo informazioni, obiettivi e contesto per definire la proposta più adatta e sostenibile nel tempo.</p>
+            </details>
+
+            <details class="faq">
+              <summary>
+                <span>Posso combinare più servizi?</span>
+                <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15.5 5 8.5l1.4-1.4L12 12.7l5.6-5.6L19 8.5z"/></svg></span>
+              </summary>
+              <p>Sì, quando è utile: integriamo competenze (es. recupero + gestione dello stress) per rendere il percorso coerente e completo.</p>
+            </details>
+
+            <details class="faq">
+              <summary>
+                <span>Dove siete e come raggiungerci?</span>
+                <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15.5 5 8.5l1.4-1.4L12 12.7l5.6-5.6L19 8.5z"/></svg></span>
+              </summary>
+              <p>Siamo a Roma, in Via V. Spurinna 147 (zona Tuscolana/Numidio Quadrato). Puoi aprire la mappa dalla sezione Contatti.</p>
+            </details>
+          </div>
+
+          <div class="btnRow" style="justify-content:flex-start; margin-top: 16px">
+            <a class="cta" href="#contatti">Prenota ora</a>
+            <a class="btn" href="tel:+393481644776">Chiama</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="anchor" id="contatti">
+      <div class="container">
+        <div class="split">
+          <div class="panel">
+            <div class="kicker"><span class="dot"></span> Contatti</div>
+            <h2>Prenota una consulenza</h2>
+            <p>Scrivici o chiamaci: ti aiutiamo a scegliere il servizio più adatto e fissare un appuntamento.</p>
+
+            <div class="bullets">
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.3-8.3 1.4 1.4-9.7 9.7z"/></svg></div><div><strong>Indirizzo</strong><br/><span style="opacity:.85">Via V. Spurinna 147, Roma</span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.7 3.3 3.3 4.9 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.7 3.8.7.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.5 22 2 13.5 2 3c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.6.7 3.8.1.4 0 .8-.2 1.1L6.6 10.8z"/></svg></div><div><strong>Telefono</strong><br/><span style="opacity:.85"><a href="tel:+393481644776">+39 348 164 4776</a></span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg></div><div><strong>Email</strong><br/><span style="opacity:.85"><a href="mailto:centro.miolistico@gmail.com">centro.miolistico@gmail.com</a></span></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm1 11.4V6h-2v7l6 3.6 1-1.7-5-2.5z"/></svg></div><div><strong>Orari</strong><br/><span style="opacity:.85">Indicativamente 9:00–20:00 (su appuntamento)</span></div></div>
+            </div>
+
+            <iframe
+              class="map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.3849121356666!2d12.553740311140434!3d41.86400146617758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f6387f8afe123%3A0x4c675f3babce5c28!2sFisioterapia%20e%20Osteopatia%20Tuscolana%20-%20Clinica%20del%20mal%20di%20schiena!5e1!3m2!1sit!2sit!4v1771343690387!5m2!1sit!2sit"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="MiOlistico su Google Maps">
+            </iframe>
+
+            <div class="btnRow" style="justify-content:flex-start; margin-top: 14px">
+              <a class="btn" href="https://maps.app.goo.gl/4keRAphBJ3NcSoxw9" target="_blank" rel="noopener">Apri su Maps</a>
+              <a class="btn" href="tel:+393481644776">Chiama ora</a>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="kicker"><span class="dot"></span> Richiesta</div>
+            <h2>Modulo contatti (rapido)</h2>
+            <p class="help">Compila: apriremo una email già pronta (puoi collegare un invio reale con Formspree/Zapier quando vuoi).</p>
+
+            <form id="contactForm">
+              <div class="row2">
+                <div>
+                  <label for="name">Nome e Cognome</label>
+                  <input id="name" name="name" type="text" placeholder="Es. Mario Rossi" autocomplete="name" required />
+                </div>
+                <div>
+                  <label for="phone">Telefono</label>
+                  <input id="phone" name="phone" type="tel" placeholder="Es. 3xx xxx xxxx" autocomplete="tel" required />
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="nome@email.it" autocomplete="email" required />
+                </div>
+                <div>
+                  <label for="goal">Obiettivo</label>
+                  <select id="goal" name="goal" required>
+                    <option value="" selected disabled>Seleziona…</option>
+                    <option value="mov">Dolore / Postura / Recupero</option>
+                    <option value="mind">Stress / Ansia / Centratura</option>
+                    <option value="relax">Tensioni / Relax / Energia</option>
+                    <option value="balance">Abitudini / Vitalità / Equilibrio</option>
+                    <option value="orient">Non so: voglio orientamento</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="service">Servizio</label>
+                  <select id="service" name="service" required>
+                    <option value="" selected disabled>Seleziona…</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="when">Quando preferisci?</label>
+                  <select id="when" name="when" required>
+                    <option value="" selected disabled>Seleziona…</option>
+                    <option>Mattina</option>
+                    <option>Pomeriggio</option>
+                    <option>Sera</option>
+                    <option>Indifferente</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="message">Messaggio</label>
+                <textarea id="message" name="message" placeholder="Raccontaci brevemente di cosa hai bisogno…" required></textarea>
+              </div>
+
+              <div class="consent">
+                <input id="privacy" type="checkbox" required />
+              <label for="privacy">Ho letto e accetto la <a href="privacy.html" target="_blank" style="text-decoration:underline">Privacy Policy</a>.</label>
+              </div>
+              <button class="cta" type="submit">Invia richiesta</button>
+              <div class="help">Risposta entro 24–48 ore lavorative.</div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">© <span id="year"></span> <strong>MiOlistico</strong> · Roma</div>
+    <div class="container">
+      <div style="display:grid; gap:8px; justify-items:center">
+        <div style="opacity:.95">© <span id="year"></span> <strong>MiOlistico</strong> · Roma</div>
+        <div style="opacity:.78; font-size:.9rem">Via V. Spurinna 147 · 9:00–20:00 (su appuntamento) · <a href="tel:+393481644776" style="text-decoration:underline">+39 348 164 4776</a> · <a href="mailto:centro.miolistico@gmail.com" style="text-decoration:underline">centro.miolistico@gmail.com</a></div>
+        <div style="opacity:.70; font-size:.88rem"><a href="privacy.html" style="text-decoration:underline">Privacy Policy</a> · Cookie Policy su richiesta.
+</div>
+      </div>
+    </div>
   </footer>
 
   <script>
+    // DOM refs
+    const progress = document.getElementById('progress');
+    const navLinks = Array.from(document.querySelectorAll('.menu a'));
+    const sections = ['centro','servizi','ambienti','faq','contatti'].map(id => document.getElementById(id));
+
+    const burger = document.getElementById('burger');
+    const sheet = document.getElementById('sheet');
+    const closeSheet = document.getElementById('closeSheet');
+
+    const goalEl = document.getElementById('goal');
+    const serviceEl = document.getElementById('service');
+    const whenEl = document.getElementById('when');
+
     const waBtn = document.getElementById('waBtn');
     const waBar = document.getElementById('waBar');
     const waPhone = '393481644776';
+
+    // Year
     document.getElementById('year').textContent = String(new Date().getFullYear());
 
+    // Progress bar
+    function onScroll(){
+      const h = document.documentElement;
+      const denom = (h.scrollHeight - h.clientHeight) || 1;
+      if(progress) progress.style.width = ((h.scrollTop / denom) * 100) + '%';
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // Active menu highlight
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        navLinks.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
+        if(link) link.classList.add('active');
+      });
+    }, {rootMargin: '-35% 0px -60% 0px', threshold: 0.08});
+    sections.forEach(s => s && obs.observe(s));
+
+    // Mobile menu
+    function openSheet(){
+      if(!sheet || !burger) return;
+      sheet.classList.add('open');
+      sheet.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
+    }
+    function closeSheetFn(){
+      if(!sheet || !burger) return;
+      sheet.classList.remove('open');
+      sheet.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+    }
+    burger?.addEventListener('click', openSheet);
+    closeSheet?.addEventListener('click', closeSheetFn);
+    sheet?.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheetFn(); });
+    sheet?.querySelectorAll('[data-close]')?.forEach(a => a.addEventListener('click', closeSheetFn));
+
+    // WhatsApp (dynamic text)
+    function buildWhatsAppText(){
+      const goalText = (goalEl && goalEl.value) ? (goalEl.options[goalEl.selectedIndex]?.textContent || goalEl.value) : '';
+      const serviceText = (serviceEl && serviceEl.value) ? serviceEl.value : '';
+      const whenText = (whenEl && whenEl.value) ? whenEl.value : '';
+
+      const bits = [];
+      if(goalText) bits.push(`Obiettivo: ${goalText}`);
+      if(serviceText) bits.push(`Servizio: ${serviceText}`);
+      if(whenText) bits.push(`Preferenza: ${whenText}`);
+
+      const tail = bits.length ? ('\n' + bits.join('\n')) : '';
+      return `Ciao MiOlistico, vorrei informazioni/prenotare una consulenza.${tail}`;
+    }
+
     function setWhatsAppHref(){
-      const txt = encodeURIComponent('Ciao MiOlistico, vorrei informazioni/prenotare una consulenza.');
+      const txt = encodeURIComponent(buildWhatsAppText());
       const url = `https://wa.me/${waPhone}?text=${txt}`;
       if(waBtn) waBtn.href = url;
       if(waBar) waBar.href = url;
     }
     setWhatsAppHref();
+
+    goalEl?.addEventListener('change', setWhatsAppHref);
+    serviceEl?.addEventListener('change', setWhatsAppHref);
+    whenEl?.addEventListener('change', setWhatsAppHref);
+
+    // Mini booking flow
+    const servicesByGoal = {
+      mov: ['Fisioterapia','Osteopatia','Riabilitazione','Valutazione posturale (orientativa)'],
+      mind: ['Supporto psicologico','Mindfulness','Colloquio orientativo'],
+      relax: ['Massaggi olistici','Aromaterapia / Massaggio emozionale','Cura del viso naturale'],
+      balance: ['Alimentazione naturale','Consulenza naturopatica','Consulenza orientativa'],
+      orient: ['Consulenza orientativa']
+    };
+
+    function setServiceOptions(key){
+      if(!serviceEl) return;
+      const list = servicesByGoal[key] || [];
+      serviceEl.innerHTML = '<option value="" selected disabled>Seleziona…</option>';
+      list.forEach(label => {
+        const opt = document.createElement('option');
+        opt.textContent = label;
+        opt.value = label;
+        serviceEl.appendChild(opt);
+      });
+    }
+
+    setServiceOptions('orient');
+    goalEl?.addEventListener('change', (e)=>{
+      setServiceOptions(e.target.value);
+      if(serviceEl) serviceEl.value = '';
+      setWhatsAppHref();
+    });
+
+    // Form submit (mailto placeholder)
+    const form = document.getElementById('contactForm');
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      const name = document.getElementById('name')?.value?.trim() || '';
+      const phone = document.getElementById('phone')?.value?.trim() || '';
+      const email = document.getElementById('email')?.value?.trim() || '';
+      const when = whenEl?.value?.trim() || '';
+      const goalVal = goalEl?.value?.trim() || '-';
+      const service = serviceEl?.value?.trim() || '-';
+      const message = document.getElementById('message')?.value?.trim() || '';
+      const privacy = document.getElementById('privacy')?.checked;
+
+      if(!privacy){ alert('Per favore accetta la Privacy Policy.'); return; }
+
+      const subject = encodeURIComponent('Richiesta MiOlistico – ' + (service !== '-' ? service : 'Informazioni'));
+      const body = encodeURIComponent(
+        `Nome: ${name}\n` +
+        `Telefono: ${phone}\n` +
+        `Email: ${email}\n\n` +
+        `Obiettivo: ${goalVal}\n` +
+        `Servizio: ${service}\n` +
+        `Quando: ${when}\n\n` +
+        `Messaggio:\n${message}\n`
+      );
+
+      window.location.href = `mailto:centro.miolistico@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    // Keep one FAQ open on mobile
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const faqItems = Array.from(document.querySelectorAll('details.faq'));
+    faqItems.forEach(d => d.addEventListener('toggle', () => {
+      if(!d.open) return;
+      faqItems.forEach(other => { if(other !== d) other.removeAttribute('open'); });
+      if(window.innerWidth <= 760 && !prefersReduced){
+        setTimeout(()=> d.scrollIntoView({behavior:'smooth', block:'start'}), 40);
+      }
+    }));
+
+    // Lightweight self-tests (run only with ?test=1)
+    (function runTests(){
+      const params = new URLSearchParams(window.location.search);
+      if(params.get('test') !== '1') return;
+
+      function assert(name, cond){
+        if(!cond) throw new Error('Test failed: ' + name);
+        console.log('✓', name);
+      }
+
+      // Test 1: WhatsApp link should be a wa.me URL
+      setWhatsAppHref();
+      assert('WhatsApp href is wa.me (fab)', (waBtn?.href || '').includes('wa.me/'));
+      assert('WhatsApp href is wa.me (sticky)', (waBar?.href || '').includes('wa.me/'));
+
+      // Test 2: buildWhatsAppText returns string and includes base greeting
+      const t = buildWhatsAppText();
+      assert('WhatsApp text is string', typeof t === 'string');
+      assert('WhatsApp text includes greeting', t.includes('Ciao MiOlistico'));
+
+      // Test 3: Service options populated for orient
+      setServiceOptions('orient');
+      const opts = serviceEl ? Array.from(serviceEl.querySelectorAll('option')).map(o=>o.textContent) : [];
+      assert('Service options include Consulenza orientativa', opts.includes('Consulenza orientativa'));
+    })();
   </script>
 </body>
 </html>
