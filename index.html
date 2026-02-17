@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#14001f" />
+
+  <title>MiOlistico – Centro Olistico a Roma | Fisioterapia, Osteopatia, Psicologia, Massaggi</title>
+  <meta name="description" content="MiOlistico è un centro olistico a Roma (zona Tuscolana/Numidio Quadrato) con approccio integrato: fisioterapia, osteopatia, supporto psicologico, mindfulness, massaggi olistici e naturopatia. Prenota una consulenza." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://miolistico.it/" />
+  <meta property="og:url" content="https://miolistico.it/" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/webp" sizes="32x32" href="assets/icons/favicon-32.webp" />
+  <link rel="icon" type="image/webp" sizes="16x16" href="assets/icons/favicon-16.webp" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.webp" />
+  <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#1c0026" />
+  <meta name="msapplication-TileColor" content="#1c0026" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MiOlistico – Centro Olistico a Roma" />
+  <meta property="og:description" content="Approccio integrato per benessere corpo e mente. Prenota una consulenza." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/miolistico-og-image.webp" />
+  <meta property="og:locale" content="it_IT" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "MiOlistico",
+    "description": "Centro olistico a Roma con approccio integrato: fisioterapia, osteopatia, supporto psicologico, mindfulness, massaggi olistici e naturopatia.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via V. Spurinna 147",
+      "addressLocality": "Roma",
+      "addressCountry": "IT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 41.86400146617758,
+      "longitude": 12.553740311140434
+    },
+    "telephone": "+39 348 164 4776",
+    "openingHours": ["Mo-Su 09:00-20:00"],
+    "hasMap": "https://maps.app.goo.gl/4keRAphBJ3NcSoxw9",
+    "email": "centro.miolistico@gmail.com",
+    "areaServed": "Roma",
+    "url": "https://miolistico.it/"
+  }
+  </script>
+
+  <style>
+    :root{
+      --viola:#1c0026;
+      --oro:#e3b34c;
+      --oro2:#ffd77b;
+      --turchese:#4ec6b6;
+      --text:#f5f1f7;
+      --muted:rgba(245,241,247,.78);
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 55px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 24px;
+      --max: 1200px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --navH: 76px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(900px 600px at 18% 12%, rgba(78,198,182,.16), transparent 62%),
+        radial-gradient(900px 600px at 85% 8%, rgba(227,179,76,.13), transparent 58%),
+        radial-gradient(900px 600px at 70% 92%, rgba(78,198,182,.10), transparent 62%),
+        radial-gradient(circle at 20% 20%, #2b0040, #07000d 70%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x:hidden;
+    }
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.14'/%3E%3C/svg%3E");
+      opacity:.12;
+      mix-blend-mode: overlay;
+    }
+    h1,h2,h3{
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+      letter-spacing: .35px;
+      margin:0 0 10px;
+    }
+    h1{font-size: clamp(2.1rem, 4vw, 3.5rem); line-height:1.08}
+    h2{font-size: clamp(1.55rem, 2.4vw, 2.2rem); line-height:1.12}
+    h3{font-size: 1.12rem; line-height:1.25}
+    p{margin:0 0 14px; color: var(--muted)}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 40px)); margin:auto}
+    .progress{position:fixed; top:0; left:0; height:2px; width:0; background: linear-gradient(90deg, rgba(78,198,182,.85), rgba(227,179,76,.78)); z-index: 1001; box-shadow:0 0 18px rgba(78,198,182,.25)}
+    header{position: fixed; width:100%; top:0; z-index:1000; backdrop-filter: blur(12px); background: rgba(0,0,0,0.34); border-bottom: 1px solid rgba(255,255,255,0.06);}
+    nav{display:flex; justify-content:space-between; align-items:center; padding: 14px 0; gap: 14px; min-height: var(--navH);}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:600; min-width: 200px;}
+    .brand img{height:44px; width:44px; border-radius: 14px; object-fit: cover; border: 1px solid rgba(255,255,255,.10); box-shadow: 0 14px 40px rgba(0,0,0,.35);}
+    .menu{display:flex; gap: 22px; font-size: .95rem; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+    .menu a{opacity:.9; padding: 10px 10px; border-radius: 999px; border:1px solid transparent; transition: .2s var(--ease)}
+    .menu a:hover{opacity:1; background: rgba(255,255,255,.06)}
+    .menu a.active{opacity:1; background: rgba(78,198,182,.10); border-color: rgba(78,198,182,.16)}
+    .cta{background: linear-gradient(135deg, var(--oro), var(--oro2)); color:#0a0011; padding: 10px 16px; border-radius: 999px; font-weight: 700; transition: transform .22s var(--ease), filter .22s var(--ease); white-space: nowrap; box-shadow: 0 14px 40px rgba(0,0,0,.28);}
+    .cta:hover{transform: translateY(-2px); filter: brightness(1.03)}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding: 11px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); color: var(--text); font-weight: 650; transition: transform .22s var(--ease), background .22s var(--ease), border-color .22s var(--ease); white-space: nowrap;}
+    .btn:hover{transform: translateY(-2px); border-color: rgba(78,198,182,.22); background: rgba(255,255,255,.07)}
+    section{padding: 110px 0}
+    .anchor{scroll-margin-top: calc(var(--navH) + 18px)}
+    .hero{padding-top: 160px; text-align:center; position:relative}
+    .kicker{display:inline-flex; align-items:center; gap:10px; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; opacity:.9; margin-bottom: 12px}
+    .dot{width:9px; height:9px; border-radius:99px; background: radial-gradient(circle at 30% 30%, var(--turchese), rgba(78,198,182,.2)); box-shadow:0 0 0 5px rgba(78,198,182,.10)}
+    .btnRow{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 18px}
+    .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top: 18px}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding: 8px 10px; border-radius: 999px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); font-size: .85rem; opacity:.92}
+    .spark{width:8px; height:8px; border-radius:99px; background: rgba(227,179,76,.78); box-shadow:0 0 0 4px rgba(227,179,76,.12)}
+    .panel{background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius2); padding: 26px; box-shadow: var(--shadow); overflow:hidden; position:relative;}
+    .split{display:grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start}
+    .services{display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 22px;}
+    .gallery{display:grid; grid-template-columns: 1.05fr .95fr; gap: 18px; align-items: stretch; margin-top: 18px;}
+    .shots{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
+    .shot{border-radius: var(--radius2); border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); overflow:hidden; position:relative; box-shadow: 0 16px 48px rgba(0,0,0,.30);}
+    .shot.big{grid-row: span 2}
+    .shot img{width:100%; height:100%; object-fit: cover; display:block;}
+    .faqGrid{display:grid; gap:12px; margin-top: 18px}
+    iframe.map{width:100%; border:0; border-radius: 18px; height: 360px; margin-top: 18px; background: rgba(255,255,255,.03)}
+    footer{background: rgba(0,0,0,.25); border-top: 1px solid rgba(255,255,255,.06); padding: 46px 0; text-align:center; font-size: .95rem; opacity:.88}
+    .float{position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 1003; display:flex; flex-direction:column; gap:10px}
+    .fab{display:inline-flex; align-items:center; gap:10px; justify-content:center; padding: 12px 14px; border-radius: 999px; border:1px solid rgba(78,198,182,.22); background: rgba(10,0,17,.78); backdrop-filter: blur(10px); box-shadow: 0 18px 55px rgba(0,0,0,.35); font-weight: 700;}
+    .fab.gold{border-color: rgba(227,179,76,.26)}
+    .stickyBar{display:none}
+    @media (max-width: 1020px){ .services{grid-template-columns: 1fr 1fr} .split{grid-template-columns: 1fr} .gallery{grid-template-columns: 1fr} }
+    @media (max-width: 760px){
+      .menu{display:none}
+      section{padding: 90px 0}
+      .container{width:min(var(--max), calc(100% - 28px))}
+      .hero{padding-top: 150px}
+      .services{grid-template-columns: 1fr}
+      .shots{grid-template-columns: 1fr}
+      iframe.map{height: 320px}
+      .float{right: 12px}
+      .stickyBar{display:flex; position:fixed; left:12px; right:12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index:1004; gap:10px; padding:10px; border-radius:18px; border:1px solid rgba(255,255,255,.12); background: rgba(10,0,17,.72); backdrop-filter: blur(12px); box-shadow: 0 18px 55px rgba(0,0,0,.40);}
+      .stickyBar a{flex:1; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center; gap:10px; font-weight:750;}
+      .stickyBar a.primary{color:#0a0011; border-color: rgba(227,179,76,.18); background: linear-gradient(135deg, var(--oro), var(--oro2));}
+      .stickyBar svg{width:16px; height:16px; fill: rgba(245,241,247,.92)}
+      .stickyBar a.primary svg{fill:#0a0011}
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header>
+    <div class="container">
+      <nav aria-label="Menu principale">
+        <a class="brand" href="#home" aria-label="Vai alla home">
+          <img src="assets/miolistico-logo.webp" alt="MiOlistico logo" loading="eager" decoding="async" />
+          <div>
+            <span>MiOlistico</span>
+            <small>Centro olistico a Roma</small>
+          </div>
+        </a>
+        <div class="menu" id="menu">
+          <a href="#centro">Il centro</a>
+          <a href="#servizi">Servizi</a>
+          <a href="#ambienti">Ambienti</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contatti">Contatti</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px">
+          <a class="cta" href="#contatti">Prenota</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="float" aria-label="Azioni rapide">
+    <a class="fab" href="tel:+393481644776" aria-label="Chiama MiOlistico">Chiama</a>
+    <a class="fab gold" id="waBtn" href="#" aria-label="Scrivi su WhatsApp">WhatsApp</a>
+  </div>
+
+  <div class="stickyBar" aria-label="Azioni rapide mobile">
+    <a href="tel:+393481644776" aria-label="Chiama MiOlistico">Chiama</a>
+    <a id="waBar" href="#" aria-label="WhatsApp MiOlistico">WhatsApp</a>
+    <a class="primary" href="#contatti" aria-label="Prenota una consulenza">Prenota</a>
+  </div>
+
+  <main id="main">
+    <section class="hero anchor" id="home">
+      <div class="container">
+        <div class="kicker"><span class="dot"></span> Zona Tuscolana · Numidio Quadrato · Roma</div>
+        <h1>Benessere integrato per corpo e mente</h1>
+        <p>MiOlistico è un centro olistico a Roma dove professionisti della salute e del benessere lavorano insieme per accompagnarti verso equilibrio, energia e qualità della vita.</p>
+        <div class="btnRow">
+          <a class="cta" href="#contatti">Prenota una consulenza</a>
+          <a class="btn" href="#servizi">Scopri i servizi</a>
+        </div>
+        <div class="badges" aria-label="Punti distintivi">
+          <span class="badge"><span class="spark"></span>Approccio integrato</span>
+          <span class="badge"><span class="spark"></span>Ambiente riservato</span>
+          <span class="badge"><span class="spark"></span>Percorsi su misura</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="anchor" id="servizi">
+      <div class="container">
+        <div class="panel">
+          <div class="kicker"><span class="dot"></span> Servizi</div>
+          <h2>I nostri servizi principali</h2>
+          <p>Fisioterapia, Osteopatia, Supporto psicologico, Massaggi olistici.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="anchor" id="ambienti">
+      <div class="container">
+        <div class="panel">
+          <div class="kicker"><span class="dot"></span> Ambienti</div>
+          <h2>Uno spazio luminoso, ordinato, riservato</h2>
+          <div class="gallery" aria-label="Foto del centro MiOlistico">
+            <div class="shots">
+              <figure class="shot big">
+                <img src="assets/miolistico-roma-area-movimento.webp" alt="MiOlistico Roma: area esercizi e riabilitazione" loading="lazy" decoding="async" width="900" height="1200" />
+              </figure>
+              <figure class="shot">
+                <img src="assets/miolistico-roma-sala-accoglienza.webp" alt="MiOlistico Roma: sala accoglienza" loading="lazy" decoding="async" width="900" height="650" />
+              </figure>
+              <figure class="shot">
+                <img src="assets/miolistico-roma-spazi-riservati.webp" alt="MiOlistico Roma: corridoio e sala d'attesa" loading="lazy" decoding="async" width="900" height="650" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="anchor" id="contatti">
+      <div class="container">
+        <div class="panel">
+          <div class="kicker"><span class="dot"></span> Contatti</div>
+          <h2>Prenota una consulenza</h2>
+          <p>Via V. Spurinna 147, Roma · <a href="tel:+393481644776" style="text-decoration:underline">+39 348 164 4776</a> · <a href="mailto:centro.miolistico@gmail.com" style="text-decoration:underline">centro.miolistico@gmail.com</a></p>
+          <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.3849121356666!2d12.553740311140434!3d41.86400146617758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f6387f8afe123%3A0x4c675f3babce5c28!2sFisioterapia%20e%20Osteopatia%20Tuscolana%20-%20Clinica%20del%20mal%20di%20schiena!5e1!3m2!1sit!2sit!4v1771343690387!5m2!1sit!2sit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MiOlistico su Google Maps"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> <strong>MiOlistico</strong> · Roma</div>
+  </footer>
+
+  <script>
+    const waBtn = document.getElementById('waBtn');
+    const waBar = document.getElementById('waBar');
+    const waPhone = '393481644776';
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+
+    function setWhatsAppHref(){
+      const txt = encodeURIComponent('Ciao MiOlistico, vorrei informazioni/prenotare una consulenza.');
+      const url = `https://wa.me/${waPhone}?text=${txt}`;
+      if(waBtn) waBtn.href = url;
+      if(waBar) waBar.href = url;
+    }
+    setWhatsAppHref();
+  </script>
+</body>
+</html>
